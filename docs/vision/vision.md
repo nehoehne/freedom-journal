@@ -18,10 +18,10 @@ This journal is not meant to replace traditional approaches such as accountabili
 4. 100% native desktop experience to avoid storing sensitive information for users (i.e. users are responsible for managing their own data)
 6. Local analytics engine to provide meaningful correlation data
 5. Optional AI integration to boost analytics  
-    
+
 
 ## The Tech 
 
 * Database: sqlite 
-* Backend: Electron
-* Frontend: Angular + Tailwind CSS
+* Backend: Tauri/Rust
+* Frontend: Svelte + Tailwind CSS
