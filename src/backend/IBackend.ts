@@ -1,5 +1,5 @@
 export interface IBackend 
 {
-    getJournalEntries: () => string; 
+    getJournalEntry: (date: string) => Promise<unknown>;
     
 }
