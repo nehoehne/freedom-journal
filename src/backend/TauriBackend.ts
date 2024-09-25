@@ -14,4 +14,22 @@ class Backend implements IBackend {
 		return db.select("SELECT * FROM journal-entries WHERE date = $1", [date]);
 	}
 
+	async getGreenActivities() {
+		const db = await this.getDB();
+
+		return db.select("SELECT * FROM activities WHERE type='green'")
+	}
+
+	async getYellowActivities() {
+		const db = await this.getDB();
+
+		return db.select("SELECT * FROM activities WHERE type='yellow'")
+	}
+
+	async getRedActivities() {
+		const db = await this.getDB();
+
+		return db.select("SELECT * FROM activities WHERE type='red'")
+	}
+
 }
