@@ -1,12 +1,10 @@
 <script>
-
+	import Journal from "$lib/Journal.svelte";
 import "./app.pcss";
-import Greet from './lib/Greet.svelte'</script>
+</script>
 
 <main>
-  <div>
-    <Greet></Greet>
-  </div>
-
-
+	<div>
+		<Journal></Journal>
+	</div>
 </main>
