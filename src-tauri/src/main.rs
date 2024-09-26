@@ -17,7 +17,7 @@ fn greet(name: &str) -> String {
 fn main() {
 
 	// Uncomment if you want to wipe the database 
-	delete_db();
+	// delete_db();
 
 	// Setup database tables
 	let migrations = vec![

@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS journal_entries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-	date TEXT NOT NULL UNIQUE CHECK (my_date LIKE '____-__-__' AND date = date(date)),
+	date TEXT NOT NULL UNIQUE CHECK (date LIKE '____-__-__' AND date = date(date)),
 	text TEXT    
 );
 

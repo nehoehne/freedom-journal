@@ -6,6 +6,12 @@ export interface IActivity {
 	getStyles: () => string;
 }
 
+export enum ActivityTypes {
+	Green = 'green', 
+	Yellow = 'yellow', 
+	Red = 'red', 
+}
+
 export class Green implements IActivity {
 	
 	private readonly baseStyles = "cursor-default border-transparent"
@@ -32,6 +38,7 @@ export class Green implements IActivity {
 		this.selected = !this.selected;
 		console.log(this.selected)
 	}
+
 
 }
 
