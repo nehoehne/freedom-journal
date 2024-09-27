@@ -1,4 +1,5 @@
-import { ActivityTypes, Green, Red, Yellow, type IActivity } from '../activity/IActivity';
+import { Green, Red, toActivity, Yellow, type IActivity } from '../activity/IActivity';
+import { Entry } from '../journal-entry/Entry';
 import type { IBackend } from './IBackend';
 import Database from "tauri-plugin-sql-api";
 
@@ -8,7 +9,7 @@ import Database from "tauri-plugin-sql-api";
 export class Backend implements IBackend {
 
 
-	async getJournalEntry(date: string) {
+	async getEntry(date: string) {
 		const db = await this.getDB();
 		return await db.select("SELECT * FROM journal-entries WHERE date = $1", [date]);
 	}
@@ -28,10 +29,37 @@ export class Backend implements IBackend {
 		return this.jsonArrayToActivities(await db.select("SELECT * FROM activities WHERE type='red'"))
 	}
 
+	async getJournalEntries() {
+		const db = await this.getDB();
+
+		return this.rowsToJournalEntries(await db.select(
+			`SELECT journal_entries.id as journal_entry_id, activity_id, date, text, name as activity_name, type as activity_type FROM journal_entries LEFT JOIN journal_entry_activities ON journal_entries.id=journal_entry_activities.journal_entry_id LEFT JOIN activities ON journal_entry_activities.activity_id=activities.id`))
+	}
+
 	// Helper functions 
 
 	// C:\Users\Nathan\AppData\Roaming\com.tauri.dev\
 	private getDB = () => Database.load("sqlite:test.db");
+
+	private rowsToJournalEntries(raw: any[]): Entry[] {
+		const entries = new Map<number, Entry>();
+
+		raw.forEach(row => {
+			const id = row.journal_entry_id
+			if (!entries.has(id)) {
+				entries.set(id, new Entry(id, row.date, row.text));
+			}
+
+			const entry = entries.get(id);
+			const activity = toActivity({ id: row.activity_id, name: row.activity_name, type: row.activity_type })
+
+			if (entry && activity) {
+				activity.addSelfToJournal(entry)
+			}
+		});
+
+		return Array.from(entries.values());
+	}
 
 	private jsonArrayToActivities(rawActivities: unknown): IActivity[] {
 
@@ -41,17 +69,9 @@ export class Backend implements IBackend {
 		const activities: IActivity[] = []
 
 		for (let rawActivity of rawActivities) {
-			switch (rawActivity?.type) {
-				case ActivityTypes.Green:
-					activities.push(new Green(rawActivity?.name));
-					break;
-				case ActivityTypes.Yellow:
-					activities.push(new Yellow(rawActivity?.name));
-					break;
-				case ActivityTypes.Red:
-					activities.push(new Red(rawActivity?.name));
-					break;
-			}
+			const curr = toActivity(rawActivity)
+			if (curr)
+				activities.push(curr)
 		}
 
 		return activities;

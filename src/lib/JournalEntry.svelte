@@ -6,20 +6,29 @@
     import ActivityList from "./ActivityList.svelte";
     import { Green, Yellow, Red, type IActivity } from "../activity/IActivity";
 	import { Backend } from "../backend/TauriBackend";
-    import Spinner from "./Spinner.svelte";
+    import type { Entry } from "../journal-entry/Entry";
 
-	let selectedDate: DateValue | undefined = undefined;
+
+	let date: DateValue | undefined = undefined;
+	let prevDate: DateValue | undefined = undefined;
 	let backend = new Backend();
 
-	console.log("Selected date in parent:", selectedDate);
+	console.log("Selected date in parent:", date);
 	
 	export let greenActivities : IActivity[] ; 
 	export let yellowActivities : IActivity[] ; 
 	export let redActivities : IActivity[] ; 
+	export let entries: Entry[];
+
+	$: if (date != prevDate) {
+		
+		prevDate = date;
+  	}
+
 </script>
 
 <div>
-	<DatePicker bind:value={selectedDate} />
+	<DatePicker bind:value={date} entries={entries}/>
 	<Textarea placeholder="How was your day?" class="mt-3 mb-3" />
 	<ActivityList activities={greenActivities}></ActivityList>
 	<hr class="mt-3 mb-3">

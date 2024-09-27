@@ -7,6 +7,7 @@
     import { Green, Yellow, Red, type IActivity } from "../activity/IActivity";
     import { onMount } from "svelte";
 	import Spinner from "./Spinner.svelte";
+    import type { Entry } from "../journal-entry/Entry";
 
 	let backend = new Backend();
 
@@ -14,14 +15,17 @@
 	let yellowActivities : IActivity[];
 	let redActivities : IActivity[];
 
+	let entries : Entry[];
+
 	// TODO: make this global state so we can stash it and only run queries 
 	// to update existing state instead of getting it fresh each time 
 	const getActivities = async () => {
 		greenActivities = await backend.getGreenActivities()
 		yellowActivities = await backend.getYellowActivities()
 		redActivities= await backend.getRedActivities()
+		entries = await backend.getJournalEntries();
 	}
-	
+
 	onMount(() => getActivities())
 </script>
 
@@ -29,7 +33,7 @@
 	<Dialog.Trigger class={buttonVariants({ variant: "outline" })}>Add Entry</Dialog.Trigger>
 	<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
 	<ScrollArea class="sm:max-h-[600px] sm:max-w-[600px] p-4">
-		<JournalEntry greenActivities={greenActivities} yellowActivities={yellowActivities} redActivities={redActivities}></JournalEntry>
+		<JournalEntry entries={entries} greenActivities={greenActivities} yellowActivities={yellowActivities} redActivities={redActivities}></JournalEntry>
 	</ScrollArea>
 	</Dialog.Content>
 </Dialog.Root>
