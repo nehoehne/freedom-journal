@@ -15,7 +15,7 @@
 		dateStyle: "long",
 	});
 
-	export let value: DateValue | undefined = undefined;
+	let value: DateValue | undefined = undefined;
 	export let entries: Entry[];
 
 	const checkUnavailable = (date: DateValue) => {

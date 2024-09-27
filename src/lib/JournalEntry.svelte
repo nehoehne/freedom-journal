@@ -28,7 +28,7 @@
 </script>
 
 <div>
-	<DatePicker bind:value={date} entries={entries}/>
+	<DatePicker entries={entries}/>
 	<Textarea placeholder="How was your day?" class="mt-3 mb-3" />
 	<ActivityList activities={greenActivities}></ActivityList>
 	<hr class="mt-3 mb-3">

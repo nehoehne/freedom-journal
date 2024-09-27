@@ -8,7 +8,6 @@ import Database from "tauri-plugin-sql-api";
  */
 export class Backend implements IBackend {
 
-
 	async getEntry(date: string) {
 		const db = await this.getDB();
 		return await db.select("SELECT * FROM journal-entries WHERE date = $1", [date]);
@@ -33,7 +32,10 @@ export class Backend implements IBackend {
 		const db = await this.getDB();
 
 		return this.rowsToJournalEntries(await db.select(
-			`SELECT journal_entries.id as journal_entry_id, activity_id, date, text, name as activity_name, type as activity_type FROM journal_entries LEFT JOIN journal_entry_activities ON journal_entries.id=journal_entry_activities.journal_entry_id LEFT JOIN activities ON journal_entry_activities.activity_id=activities.id`))
+			`SELECT journal_entries.id as journal_entry_id, activity_id, date, text, name as activity_name, type as activity_type 
+			FROM journal_entries 
+			LEFT JOIN journal_entry_activities ON journal_entries.id=journal_entry_activities.journal_entry_id 
+			LEFT JOIN activities ON journal_entry_activities.activity_id=activities.id`))
 	}
 
 	// Helper functions 
