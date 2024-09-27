@@ -15,7 +15,7 @@
 		dateStyle: "long",
 	});
 
-	let value: DateValue | undefined = undefined;
+	export let value: DateValue | undefined = undefined;
 	export let entries: Entry[];
 
 	const checkUnavailable = (date: DateValue) => {
@@ -45,6 +45,8 @@
 	</Popover.Trigger>
 	<Popover.Content class="w-auto p-0">
 		<Calendar
+			bind:value 
+			initialFocus
 			maxValue={today(getLocalTimeZone())}
 			isDateUnavailable={checkUnavailable}
 		/>
