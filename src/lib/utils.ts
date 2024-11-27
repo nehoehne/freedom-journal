@@ -7,6 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
+export enum JournalEntryType {
+	NEW,
+	READONLY,
+	EDIT,
+}
+
 type FlyAndScaleParams = {
 	y?: number;
 	x?: number;

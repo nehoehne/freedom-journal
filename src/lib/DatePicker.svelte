@@ -17,6 +17,7 @@
 
 	export let value: DateValue | undefined = undefined;
 	export let entries: Entry[];
+	export let disabled: boolean = false; 
 
 	const checkUnavailable = (date: DateValue) => {
 		for (let entry of entries)
@@ -36,6 +37,7 @@
 				!value && "text-muted-foreground",
 			)}
 			builders={[builder]}
+			disabled={disabled}
 		>
 			<CalendarIcon class="mr-2 h-4 w-4" />
 			{value
