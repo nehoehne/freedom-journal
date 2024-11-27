@@ -1,7 +1,7 @@
 <!-- ParentComponent.svelte -->
 
 <script lang="ts">
-	import { type DateValue } from "@internationalized/date";
+	import { CalendarDate, type DateValue } from "@internationalized/date";
 	import DatePicker from "./DatePicker.svelte";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
 	import ActivityList from "./ActivityList.svelte";
@@ -21,11 +21,11 @@
 	export let state: Entry | undefined = undefined;
 
 	// If state was provided then we want to populate the form 
-	let date: DateValue | undefined = undefined;
+	let date: DateValue | undefined = state?.getDateAsDateValue();
 	let text: string | undefined = state?.text;
 
 	const handleSubmit = () => {
-		console.log("hellow")
+		console.log("hello")
 		// push changes to database 
 		// if add -> insert 
 		// if edit -> update 
