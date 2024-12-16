@@ -11,6 +11,7 @@
 	import * as Popover from "$lib/components/ui/popover/index.js";
 	import { today } from "@internationalized/date";
     import type { Entry } from "../journal-entry/Entry";
+	
 	const df = new DateFormatter("en-US", {
 		dateStyle: "long",
 	});

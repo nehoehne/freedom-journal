@@ -11,13 +11,10 @@
 	import { Entry } from "../journal-entry/Entry";
 	import Button from "./components/ui/button/button.svelte";
     import { JournalEntryType } from "./utils";
+	import { journalEntries, greenActivities, yellowActivities, redActivities } from "../stores/store";
+
 
 	export let type: JournalEntryType;
-
-	export let greenActivities: IActivity[];
-	export let yellowActivities: IActivity[];
-	export let redActivities: IActivity[];
-	export let entries: Entry[];
 	export let state: Entry | undefined = undefined;
 
 	// If state was provided then we want to populate the form 
@@ -44,14 +41,16 @@
 
 <div>
 	<form on:submit|preventDefault={handleSubmit}>
-		<DatePicker {entries} bind:value={date} disabled={type == JournalEntryType.READONLY}/>
+		<DatePicker entries={$journalEntries} bind:value={date} disabled={type == JournalEntryType.READONLY}/>
 		<Textarea bind:value={text} placeholder="How was your day?" class="mt-3 mb-3" disabled={isReadonly()}/>
-		<ActivityList activities={greenActivities} disabled={isReadonly()}></ActivityList>
+
+		<!-- TODO: Activities are reactive and writable so they should not be modified directly since they are shared between all components -->
+		<ActivityList activities={$greenActivities} disabled={isReadonly()}></ActivityList>
 		<hr class="mt-3 mb-3" />
-		<ActivityList activities={yellowActivities} disabled={isReadonly()}></ActivityList>
+		<ActivityList activities={$yellowActivities} disabled={isReadonly()}></ActivityList>
 
 		<hr class="mt-3 mb-3" />
-		<ActivityList activities={redActivities} disabled={isReadonly()}></ActivityList>
+		<ActivityList activities={$redActivities} disabled={isReadonly()}></ActivityList>
 		{#if type == JournalEntryType.NEW || type == JournalEntryType.EDIT}
 			<div class="mt-6 float-right">
 				<Button variant="outline" type="submit"> 
