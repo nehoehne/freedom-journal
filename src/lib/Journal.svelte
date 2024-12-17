@@ -31,7 +31,6 @@
 					state={journalEntry}
 				></JournalEntry>
 			</div>
-
 			<!-- TODO: Remove repeated code -> new popup component -->
 			<Dialog.Root>
 				<Dialog.Trigger class={buttonVariants({ variant: "outline" })}
@@ -46,6 +45,7 @@
 					</ScrollArea>
 				</Dialog.Content>
 			</Dialog.Root>
+
 		{/each}
 	</ScrollArea>
 </div>
