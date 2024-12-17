@@ -21,41 +21,27 @@
 		</ScrollArea>
 	</Dialog.Content>
 </Dialog.Root>
-<style>
-	.float-right {
-		display: flex;
-		justify-content: flex-end;
-	}
-</style>
+
 <div class="mx-auto w-1/2">
-	<ScrollArea class="sm:max-w-[600px] p-4 ">
-		{#each $journalEntries as journalEntry}
-		<!-- TODO: Remove repeated code -> new popup component -->
-		
+	{#each $journalEntries as journalEntry}
 		<div class="float-end">
-				<Dialog.Root>
-					<Dialog.Trigger
-						class={buttonVariants({ variant: "link" })}
-						>Edit</Dialog.Trigger
-					>
-					<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
-						<ScrollArea
-						class="sm:max-h-[590px] sm:max-w-[600px] p-4"
-						>
+			<Dialog.Root>
+				<Dialog.Trigger class={buttonVariants({ variant: "link" })}
+					>Edit</Dialog.Trigger
+				>
+				<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
+					<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 						<JournalEntry
-						type={JournalEntryType.EDIT}
-						state={journalEntry}
+							type={JournalEntryType.EDIT}
+							state={journalEntry}
 						></JournalEntry>
 					</ScrollArea>
 				</Dialog.Content>
 			</Dialog.Root>
 		</div>
 		<div class="mb-10">
-			<JournalEntry
-				type={JournalEntryType.READONLY}
-				state={journalEntry}
+			<JournalEntry type={JournalEntryType.READONLY} state={journalEntry}
 			></JournalEntry>
 		</div>
-		{/each}
-	</ScrollArea>
+	{/each}
 </div>
