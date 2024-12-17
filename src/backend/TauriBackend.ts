@@ -31,11 +31,14 @@ export class Backend implements IBackend {
 	async getJournalEntries() {
 		const db = await this.getDB();
 
+		// TODO: Order journal entries by date
 		return this.rowsToJournalEntries(await db.select(
 			`SELECT journal_entries.id as journal_entry_id, activity_id, date, text, name as activity_name, type as activity_type 
 			FROM journal_entries 
 			LEFT JOIN journal_entry_activities ON journal_entries.id=journal_entry_activities.journal_entry_id 
-			LEFT JOIN activities ON journal_entry_activities.activity_id=activities.id`))
+			LEFT JOIN activities ON journal_entry_activities.activity_id=activities.id
+			ORDER BY date DESC
+			`))
 	}
 
 	// Helper functions 

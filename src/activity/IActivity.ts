@@ -3,6 +3,7 @@ import { Entry } from "../journal-entry/Entry";
 export interface IActivity {
 	name: string;
 	selected: boolean;
+	id: number;
 
 	toggleSelected: () => void;
 	getStyles: () => string;
