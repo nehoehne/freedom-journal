@@ -16,7 +16,7 @@
 		<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 			<JournalEntry
 				type={JournalEntryType.EDIT}
-				state={new Entry(1234, "2023-22-22", "hellow world")}
+				state={new Entry(1234, "", "")}
 			></JournalEntry>
 		</ScrollArea>
 	</Dialog.Content>
@@ -25,27 +25,32 @@
 <div class="mx-auto w-1/2">
 	<ScrollArea class="sm:max-w-[600px] p-4 ">
 		{#each $journalEntries as journalEntry}
-			<div class="mt-5 mb-10">
+			<div class="mt-5 mb-3">
 				<JournalEntry
 					type={JournalEntryType.READONLY}
 					state={journalEntry}
 				></JournalEntry>
 			</div>
 			<!-- TODO: Remove repeated code -> new popup component -->
-			<Dialog.Root>
-				<Dialog.Trigger class={buttonVariants({ variant: "outline" })}
-					>Edit</Dialog.Trigger
-				>
-				<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
-					<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
-						<JournalEntry
-							type={JournalEntryType.EDIT}
-							state={journalEntry}
-						></JournalEntry>
-					</ScrollArea>
-				</Dialog.Content>
-			</Dialog.Root>
 
+			<div class="mb-10">
+				<Dialog.Root>
+					<Dialog.Trigger
+						class={buttonVariants({ variant: "outline" })}
+						>Edit</Dialog.Trigger
+					>
+					<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
+						<ScrollArea
+							class="sm:max-h-[590px] sm:max-w-[600px] p-4"
+						>
+							<JournalEntry
+								type={JournalEntryType.EDIT}
+								state={journalEntry}
+							></JournalEntry>
+						</ScrollArea>
+					</Dialog.Content>
+				</Dialog.Root>
+			</div>
 		{/each}
 	</ScrollArea>
 </div>
