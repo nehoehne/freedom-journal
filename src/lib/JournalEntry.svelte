@@ -1,5 +1,3 @@
-<!-- ParentComponent.svelte -->
-
 <script lang="ts">
 	import { CalendarDate, type DateValue } from "@internationalized/date";
 	import DatePicker from "./DatePicker.svelte";
@@ -13,24 +11,57 @@
 		greenActivities as allGreenActivities,
 		yellowActivities as allYellowActivities,
 		redActivities as allRedActivities,
+        addEntry,
 	} from "../stores/store";
 	import type { IActivity } from "../activity/IActivity";
+    import { Backend } from "../backend/TauriBackend";
 
 	export let type: JournalEntryType;
-	export let state: Entry | undefined = undefined;
+	export let entry: Entry;
 
 	// If state was provided then we want to populate the form
-	let date: DateValue | undefined = state?.getDateAsDateValue();
-	let text: string | undefined = state?.text;
+	let date: DateValue | undefined = entry.getDateAsDateValue();
+	let text: string = entry.text;
+
+	const setActivityMap = (selectedActivities: IActivity[], selectedActivitiesMap: Map<number, IActivity>) => {
+		for(let activity of selectedActivities)
+			selectedActivitiesMap.set(activity.id, activity)
+	}
 
 	const handleSubmit = () => {
-		console.log("hello");
-		// push changes to database
-		// if add -> insert
-		// if edit -> update
+		if (entry) {
+			let dateStr = date?.toString()
+
+			if (dateStr) {
+				entry.date = dateStr
+				if (type == JournalEntryType.EDIT) {
+					console.log("EDIT")
+				} else if (type == JournalEntryType.NEW) {
+					console.log("NEW")
+
+					// TODO: concat not working -> move code to entry 
+					console.log(date?.toString())
+					const selectedActivities = greenSelectedMap.values().toArray()
+					selectedActivities.concat(yellowSelectedMap.values().toArray(), redSelectedMap.values().toArray())
+					addEntry(entry, selectedActivities)
+				}
+
+			} else {
+				console.log("Missing date.")
+			}
+
+		}
+		else 
+			console.log("Missing state.")
 	};
 
 	const isReadonly = () => type == JournalEntryType.READONLY;
+
+	if (entry) {
+		setActivityMap(entry.greenActivities, greenSelectedMap)
+		setActivityMap(entry.yellowActivities, yellowSelectedMap)
+		setActivityMap(entry.redActivities, redSelectedMap)
+	}
 </script>
 
 <div>
@@ -47,33 +78,26 @@
 			disabled={isReadonly()}
 		/>
 		<ActivityList
-			selectedActivities={state?.greenActivities}
+			selectedActivitiesMap={greenSelectedMap}
 			allActivities={$allGreenActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
 		<ActivityList
-			selectedActivities={state?.yellowActivities}
+			selectedActivitiesMap={yellowSelectedMap}
 			allActivities={$allYellowActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
 		<ActivityList
-			selectedActivities={state?.redActivities}
+			selectedActivitiesMap={redSelectedMap}
 			allActivities={$allRedActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		{#if type == JournalEntryType.NEW || type == JournalEntryType.EDIT}
-			<div class="mt-6 float-right">
+			<div class="mt-6 float-end">
 				<Button variant="outline" type="submit">Save</Button>
 			</div>
 		{/if}
 	</form>
 </div>
-
-<style>
-	.float-right {
-		display: flex;
-		justify-content: flex-end;
-	}
-</style>

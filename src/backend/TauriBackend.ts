@@ -10,7 +10,14 @@ export class Backend implements IBackend {
 
 	async getEntry(date: string) {
 		const db = await this.getDB();
-		return await db.select("SELECT * FROM journal-entries WHERE date = $1", [date]);
+		const rows = await db.select("SELECT * FROM journal_entries WHERE date = $1", [date])
+		
+		if (!Array.isArray(rows) || rows.length === 0) {
+			console.log("Entry not found.")
+			return undefined;
+		}
+		// TODO: make this more safe 
+		return new Entry(rows[0].id, rows[0].date, rows[0].text);
 	}
 
 	async getGreenActivities() {
@@ -27,7 +34,7 @@ export class Backend implements IBackend {
 		const db = await this.getDB();
 		return this.jsonArrayToActivities(await db.select("SELECT * FROM activities WHERE type='red'"))
 	}
-
+	
 	async getJournalEntries() {
 		const db = await this.getDB();
 
@@ -41,6 +48,18 @@ export class Backend implements IBackend {
 			`))
 	}
 
+	async insertJournalEntry(new_entry: Entry, activities: IActivity[]) {
+		const db = await this.getDB();
+		await db.execute(`INSERT INTO journal_entries (date, text) VALUES ($1, $2)`, [new_entry.date, new_entry.text])
+		const entry = await this.getEntry(new_entry.date)
+		if (entry) {
+			for (let activity of activities)
+				await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [entry.id, activity.id])
+		}
+		else
+			console.log("Unable to add entry: " + entry)
+
+	}
 	// Helper functions 
 
 	// C:\Users\Nathan\AppData\Roaming\com.tauri.dev\

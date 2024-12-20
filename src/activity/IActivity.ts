@@ -2,11 +2,10 @@ import { Entry } from "../journal-entry/Entry";
 
 export interface IActivity {
 	name: string;
-	selected: boolean;
 	id: number;
 
-	toggleSelected: () => void;
-	getStyles: () => string;
+	getSelectedStyles: () => string;
+	getUnselectedStyles: () => string;
 	addSelfToJournal: (entry: Entry) => void;
 }
 
@@ -36,7 +35,6 @@ export class Green implements IActivity {
 
 	id: number;
 	name: string;
-	selected: boolean = false;
 
 	constructor(name: string, id: number) {
 		this.name = name;
@@ -47,20 +45,14 @@ export class Green implements IActivity {
 		entry.addGreenActivity(this);
 	}
 
-	getStyles() {
-		let styles = this.baseStyles + " ";
-		if (this.selected)
-			styles += this.selectedStyles
-		else 
-			styles += this.unselectedStyles
-		return styles;
-	} 
-
-	toggleSelected() {
-		this.selected = !this.selected;
-		console.log(this.selected)
+	
+	getSelectedStyles() {
+		return this.baseStyles + " " + this.selectedStyles
 	}
 
+	getUnselectedStyles() {
+		return this.baseStyles + " " + this.unselectedStyles
+	}
 
 }
 
@@ -72,7 +64,6 @@ export class Yellow implements IActivity {
 
 	id: number;
 	name: string;
-	selected: boolean = false;
 
 	constructor(name: string, id: number) {
 		this.name = name;
@@ -83,18 +74,12 @@ export class Yellow implements IActivity {
 		entry.addYellowActivity(this);
 	}
 
-	getStyles() {
-		let styles = this.baseStyles + " ";
-		if (this.selected)
-			styles += this.selectedStyles
-		else 
-			styles += this.unselectedStyles
-		return styles;
-	} 
+	getSelectedStyles() {
+		return this.baseStyles + " " + this.selectedStyles
+	}
 
-	toggleSelected() {
-		this.selected = !this.selected;
-		console.log(this.selected)
+	getUnselectedStyles() {
+		return this.baseStyles + " " + this.unselectedStyles
 	}
 
 }
@@ -107,7 +92,6 @@ export class Red implements IActivity {
 
 	name: string;
 	id: number;
-	selected: boolean = false;
 
 	constructor(name: string, id: number) {
 		this.name = name;
@@ -118,18 +102,12 @@ export class Red implements IActivity {
 		entry.addRedActivity(this);
 	}
 
-	getStyles() {
-		let styles = this.baseStyles + " ";
-		if (this.selected)
-			styles += this.selectedStyles
-		else 
-			styles += this.unselectedStyles
-		return styles;
-	} 
-
-	toggleSelected() {
-		this.selected = !this.selected;
-		console.log(this.selected)
+	getSelectedStyles() {
+		return this.baseStyles + " " + this.selectedStyles
 	}
 
+	getUnselectedStyles() {
+		return this.baseStyles + " " + this.unselectedStyles
+	}
+	
 }

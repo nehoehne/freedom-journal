@@ -15,8 +15,8 @@
 	<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
 		<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 			<JournalEntry
-				type={JournalEntryType.EDIT}
-				state={new Entry(1234, "", "")}
+				type={JournalEntryType.NEW}
+				entry={new Entry(1234, "", "")}
 			></JournalEntry>
 		</ScrollArea>
 	</Dialog.Content>
@@ -33,14 +33,14 @@
 					<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 						<JournalEntry
 							type={JournalEntryType.EDIT}
-							state={journalEntry}
+							entry={journalEntry}
 						></JournalEntry>
 					</ScrollArea>
 				</Dialog.Content>
 			</Dialog.Root>
 		</div>
 		<div class="mb-10">
-			<JournalEntry type={JournalEntryType.READONLY} state={journalEntry}
+			<JournalEntry type={JournalEntryType.READONLY} entry={journalEntry}
 			></JournalEntry>
 		</div>
 	{/each}

@@ -3,29 +3,18 @@ import { Green, Red, Yellow, type IActivity } from "../activity/IActivity";
 
 export class Entry {
 
-	greenActivities: Green[] = [];
-	yellowActivities: Yellow[] = [];
-	redActivities: Red[] = [];
+	private greenActivities: Map<number, Green> = new Map<number, Green>(); 
+	private yellowActivities: Map<number, Yellow> = new Map<number, Yellow>(); 
+	private redActivities: Map<number, Red> = new Map<number, Red>(); 
 
-	id: number;
-	date: string;
-	text: string;
+	readonly id: number;
+	readonly date: string;
+	readonly text: string;
 
 	constructor(id: number, date: string, text: string) {
 		this.id = id;
 		this.date = date;
 		this.text = text;
-	}
-
-	addGreenActivity(activity: Green) {
-		this.greenActivities.push(activity);
-	}
-
-	addYellowActivity(activity: Yellow) {
-		this.yellowActivities.push(activity);
-	}
-	addRedActivity(activity: Red) {
-		this.redActivities.push(activity);
 	}
 
 	getDateAsDateValue(): DateValue | undefined {
@@ -40,5 +29,33 @@ export class Entry {
 		}
 
 		return new CalendarDate(year, month, day)
+	}
+	
+	addGreenActivity(activity: Green) {
+		this.greenActivities.set(activity.id, activity);
+	}
+
+	addYellowActivity(activity: Yellow) {
+		this.yellowActivities.set(activity.id, activity);
+	}
+
+	addRedActivity(activity: Red) {
+		this.redActivities.set(activity.id, activity);
+	}
+
+	getGreenActivities(): Green[] {
+		return this.greenActivities.values().toArray()
+	}
+
+	getYellowActivities(): Yellow[] {
+		return this.yellowActivities.values().toArray()
+	}
+	
+	getRedActivities(): Red[] {
+		return this.redActivities.values().toArray()
+	}
+
+	getAllActivities(): IActivity[] {
+		return [...this.getGreenActivities(), ...this.getYellowActivities(), ...this.getRedActivities()]
 	}
 }
