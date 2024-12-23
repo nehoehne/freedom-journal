@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CalendarDate, type DateValue } from "@internationalized/date";
+	import { type DateValue } from "@internationalized/date";
 	import DatePicker from "./DatePicker.svelte";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
 	import ActivityList from "./ActivityList.svelte";
@@ -13,8 +13,6 @@
 		redActivities as allRedActivities,
         addEntry,
 	} from "../stores/store";
-	import type { IActivity } from "../activity/IActivity";
-    import { Backend } from "../backend/TauriBackend";
 
 	export let type: JournalEntryType;
 	export let entry: Entry;
@@ -38,7 +36,6 @@
 			} else {
 				console.log("Missing date.")
 			}
-
 		}
 		else 
 			console.log("Missing state.")
