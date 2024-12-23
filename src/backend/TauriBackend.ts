@@ -48,17 +48,25 @@ export class Backend implements IBackend {
 			`))
 	}
 
-	async insertJournalEntry(new_entry: Entry, activities: IActivity[]) {
+	async insertJournalEntry(new_entry: Entry) {
 		const db = await this.getDB();
-		await db.execute(`INSERT INTO journal_entries (date, text) VALUES ($1, $2)`, [new_entry.date, new_entry.text])
-		const entry = await this.getEntry(new_entry.date)
-		if (entry) {
-			for (let activity of activities)
-				await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [entry.id, activity.id])
-		}
-		else
-			console.log("Unable to add entry: " + entry)
+		await db.execute(`INSERT INTO journal_entries (date, text) VALUES ($1, $2)`, [new_entry.getDate(), new_entry.getText()])
 
+		const date = new_entry.getDate()
+		if(date !== undefined) {
+
+			// Get the entry we just added because we need the ID to add the activities
+			const dbEntry = await this.getEntry(date)
+
+			if (dbEntry != undefined) {
+				const activities = new_entry.getAllActivities()
+				for (let activity of activities)
+					await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [dbEntry.getId(), activity.id])
+			}
+			else {
+				console.log("Failed to add entry: " + new_entry)
+			}
+		}
 	}
 	// Helper functions 
 

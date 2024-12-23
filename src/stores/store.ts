@@ -27,8 +27,8 @@ export const refreshActivities = async () => {
 	redActivities.set(await backend.getRedActivities())
 }
 
-export const addEntry = async (new_entry: Entry, activities: IActivity[]) => {
+export const addEntry = async (new_entry: Entry) => {
 	const backend = new Backend()
-	await backend.insertJournalEntry(new_entry, activities)
+	await backend.insertJournalEntry(new_entry)
 	refreshJournalEntries()
 }

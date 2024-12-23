@@ -21,31 +21,20 @@
 
 	// If state was provided then we want to populate the form
 	let date: DateValue | undefined = entry.getDateAsDateValue();
-	let text: string = entry.text;
-
-	const setActivityMap = (selectedActivities: IActivity[], selectedActivitiesMap: Map<number, IActivity>) => {
-		for(let activity of selectedActivities)
-			selectedActivitiesMap.set(activity.id, activity)
-	}
+	let text: string = entry.getText();
 
 	const handleSubmit = () => {
 		if (entry) {
-			let dateStr = date?.toString()
+			
+			entry.setDate(date)
+			entry.setText(text)
 
-			if (dateStr) {
-				entry.date = dateStr
+			if (entry.hasValidDate()) {
 				if (type == JournalEntryType.EDIT) {
 					console.log("EDIT")
 				} else if (type == JournalEntryType.NEW) {
-					console.log("NEW")
-
-					// TODO: concat not working -> move code to entry 
-					console.log(date?.toString())
-					const selectedActivities = greenSelectedMap.values().toArray()
-					selectedActivities.concat(yellowSelectedMap.values().toArray(), redSelectedMap.values().toArray())
-					addEntry(entry, selectedActivities)
+					addEntry(entry)
 				}
-
 			} else {
 				console.log("Missing date.")
 			}
@@ -57,11 +46,6 @@
 
 	const isReadonly = () => type == JournalEntryType.READONLY;
 
-	if (entry) {
-		setActivityMap(entry.greenActivities, greenSelectedMap)
-		setActivityMap(entry.yellowActivities, yellowSelectedMap)
-		setActivityMap(entry.redActivities, redSelectedMap)
-	}
 </script>
 
 <div>
@@ -78,19 +62,19 @@
 			disabled={isReadonly()}
 		/>
 		<ActivityList
-			selectedActivitiesMap={greenSelectedMap}
+			selectedActivitiesMap={entry.getGreenActivitiesMap()}
 			allActivities={$allGreenActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
 		<ActivityList
-			selectedActivitiesMap={yellowSelectedMap}
+			selectedActivitiesMap={entry.getYellowActivitiesMap()}
 			allActivities={$allYellowActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
 		<ActivityList
-			selectedActivitiesMap={redSelectedMap}
+			selectedActivitiesMap={entry.getRedActivitiesMap()}
 			allActivities={$allRedActivities}
 			disabled={isReadonly()}
 		></ActivityList>

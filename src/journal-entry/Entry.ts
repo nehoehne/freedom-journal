@@ -7,18 +7,49 @@ export class Entry {
 	private yellowActivities: Map<number, Yellow> = new Map<number, Yellow>(); 
 	private redActivities: Map<number, Red> = new Map<number, Red>(); 
 
-	readonly id: number;
-	readonly date: string;
-	readonly text: string;
+	private date: string | undefined;
+	private text: string;
+	private id: number;
 
-	constructor(id: number, date: string, text: string) {
+	constructor(id: number = -1, date: string | undefined = undefined, text: string = "") {
 		this.id = id;
 		this.date = date;
 		this.text = text;
 	}
 
+	getText(): string {
+		return this.text
+	}
+
+	setText(text: string) {
+		this.text = text
+	}
+
+	getId() {
+		return this.id
+	}
+
+	hasValidDate(): boolean {
+		return isValidDate(this.date)
+	}
+
+	setDate(date: DateValue | undefined) {
+		const dateStr = date?.toString()
+
+		if (isValidDate(dateStr))
+			this.date = dateStr
+	}
+
+	getDate() {
+		return this.date;
+	}
+
 	getDateAsDateValue(): DateValue | undefined {
 		const parts = this.date?.split("-")
+
+		if (!parts) 
+			return undefined 
+	
 		const year: number = parseInt(parts[0], 10);
 		const month: number = parseInt(parts[1], 10);
 		const day: number = parseInt(parts[2], 10);
@@ -27,7 +58,7 @@ export class Entry {
 			console.log("String is not a number.")
 			return undefined
 		}
-
+			
 		return new CalendarDate(year, month, day)
 	}
 	
@@ -55,7 +86,28 @@ export class Entry {
 		return this.redActivities.values().toArray()
 	}
 
+	getGreenActivitiesMap(): Map<number, Green> {
+		return this.greenActivities;
+	}
+	
+	getYellowActivitiesMap(): Map<number, Yellow> {
+		return this.yellowActivities;
+	}
+
+	getRedActivitiesMap(): Map<number, Red> {
+		return this.redActivities;
+	}
+
 	getAllActivities(): IActivity[] {
 		return [...this.getGreenActivities(), ...this.getYellowActivities(), ...this.getRedActivities()]
 	}
+}
+
+function isValidDate(maybeDate: string | undefined): boolean {
+	if (maybeDate === undefined)
+		return false; 
+
+	const date = new Date(maybeDate)
+
+	return !isNaN(date.getTime());
 }
