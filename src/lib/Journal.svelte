@@ -6,8 +6,11 @@
 	import { Entry } from "../journal-entry/Entry";
 	import { JournalEntryType } from "./utils";
 	import { journalEntries } from "../stores/store";
+
+
 </script>
 
+<!-- Add button -->
 <Dialog.Root>
 	<Dialog.Trigger class={buttonVariants({ variant: "outline" })}
 		>Add Entry</Dialog.Trigger
@@ -15,8 +18,8 @@
 	<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
 		<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 			<JournalEntry
-				type={JournalEntryType.EDIT}
-				state={new Entry(1234, "", "")}
+				type={JournalEntryType.NEW}
+				entry={new Entry()}
 			></JournalEntry>
 		</ScrollArea>
 	</Dialog.Content>
@@ -25,6 +28,8 @@
 <div class="mx-auto w-1/2">
 	{#each $journalEntries as journalEntry}
 		<div class="float-end">
+
+			<!-- Edit button -->
 			<Dialog.Root>
 				<Dialog.Trigger class={buttonVariants({ variant: "link" })}
 					>Edit</Dialog.Trigger
@@ -33,14 +38,16 @@
 					<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 						<JournalEntry
 							type={JournalEntryType.EDIT}
-							state={journalEntry}
+							entry={journalEntry}
 						></JournalEntry>
 					</ScrollArea>
 				</Dialog.Content>
 			</Dialog.Root>
 		</div>
+
+		<!-- Journal entry -->
 		<div class="mb-10">
-			<JournalEntry type={JournalEntryType.READONLY} state={journalEntry}
+			<JournalEntry type={JournalEntryType.READONLY} entry={journalEntry}
 			></JournalEntry>
 		</div>
 	{/each}

@@ -22,7 +22,7 @@
 
 	const checkUnavailable = (date: DateValue) => {
 		for (let entry of entries)
-			if (date.toString() === entry.date)
+			if (date.toString() === entry.getDate())
 				return true;
 		return false; 
 	};
