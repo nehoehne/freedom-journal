@@ -8,7 +8,7 @@ An application meant to help users track and identify patterns in their life sto
 
 With any addiction, it can be difficult to identify the underlying issues that drive the compulsive behavior. This journal is meant to illuminate the process of healing by helping users do just that. By collecting relevant data, over time, patterns will be revealed, allowing users to target negative patterns and reinforce positive ones. Additionally, the data collection process is itself an aid because it is simply journaling which encourages the self-reflection necessary to effectively process emotions. 
 
-This journal is not meant to replace traditional approaches such as accountability groups, therapy, anonymous groups, etc.. On the contrary, we discourage anyone from using this app in isolation from other aids. Merely tracking information, especially information as significant as relapses, without the support needed to improve your situation, will only serve to discourage you and thus, do more harm than good. 
+This journal is not meant to replace traditional approaches such as accountability groups, therapy, anonymous groups, etc.. On the contrary, we discourage anyone from using this app in isolation. Merely tracking information, especially information as significant as relapses, without the support needed to improve your situation, may only serve to discourage you and thus, do more harm than good. 
 
 ## The Application 
 
