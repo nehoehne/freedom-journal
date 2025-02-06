@@ -1,5 +1,6 @@
 # Freedom Journal
-
+## Demo 
+See demo [here](https://drive.google.com/file/d/1JNXlV4BQo7F7viz321Iv8dPeS8oBg1sh/view?usp=drive_link).
 ## Vision Sentence 
 
 An application meant to help users track and identify patterns in their life story to aid in overcoming addictions. 
