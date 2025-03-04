@@ -16,19 +16,32 @@ const initRedActivities: IActivity[] = []
 export const redActivities = writable(initRedActivities)
 
 export const refreshJournalEntries = async () => {
-	const backend = new Backend()
-	journalEntries.set(await backend.getJournalEntries())
+	try {
+		const backend = new Backend()
+		const entries = await backend.getJournalEntries();
+		journalEntries.set(entries ?? []);
+	} catch (error) {
+		console.error("Failed to refresh journal entries:", error);
+	}
 }
 
 export const refreshActivities = async () => {
-	const backend = new Backend()
-	greenActivities.set(await backend.getGreenActivities())
-	yellowActivities.set(await backend.getYellowActivities())
-	redActivities.set(await backend.getRedActivities())
+	try {
+		const backend = new Backend()
+		greenActivities.set(await backend.getGreenActivities())
+		yellowActivities.set(await backend.getYellowActivities())
+		redActivities.set(await backend.getRedActivities())
+	} catch (error) {
+		console.error("Failed to refresh activities:", error);
+	}
 }
 
 export const addEntry = async (new_entry: Entry) => {
-	const backend = new Backend()
-	await backend.insertJournalEntry(new_entry)
-	refreshJournalEntries()
+	try {
+		const backend = new Backend()
+		await backend.insertJournalEntry(new_entry)
+		refreshJournalEntries()
+	} catch (error) {
+		console.error("Failed to add journal entry:", error);
+	}
 }

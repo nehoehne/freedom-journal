@@ -9,21 +9,24 @@ export interface IActivity {
 	addSelfToJournal: (entry: Entry) => void;
 }
 
-enum ActivityTypes {
-	Green = 'green', 
-	Yellow = 'yellow', 
-	Red = 'red', 
-}
-
 export const toActivity = (rawActivity: any) => {
 	
-	switch (rawActivity?.type) {
-		case ActivityTypes.Green:
-			return new Green(rawActivity?.name, rawActivity?.id);
-		case ActivityTypes.Yellow:
-			return new Yellow(rawActivity?.name, rawActivity?.id);
-		case ActivityTypes.Red:
-			return new Red(rawActivity?.name, rawActivity?.id);
+	const id = rawActivity?.id
+	const type = rawActivity?.type
+	const name = rawActivity?.name
+
+	if (id === undefined || type === undefined || name === undefined)
+		return undefined
+
+	switch (type) {
+		case 'green':
+			return new Green(name, id);
+		case 'yellow':
+			return new Yellow(name, id);
+		case 'red':
+			return new Red(name, id);
+		default:
+			return undefined; 
 	}
 }
 
@@ -44,7 +47,6 @@ export class Green implements IActivity {
 	addSelfToJournal(entry: Entry) {
 		entry.addGreenActivity(this);
 	}
-
 	
 	getSelectedStyles() {
 		return this.baseStyles + " " + this.selectedStyles

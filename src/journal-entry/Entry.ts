@@ -1,5 +1,6 @@
 import { CalendarDate, type DateValue } from "@internationalized/date";
 import { Green, Red, Yellow, type IActivity } from "../activity/IActivity";
+import { getDateAsDateValue, isValidDate } from "../util/date";
 
 export class Entry {
 
@@ -45,21 +46,7 @@ export class Entry {
 	}
 
 	getDateAsDateValue(): DateValue | undefined {
-		const parts = this.date?.split("-")
-
-		if (!parts) 
-			return undefined 
-	
-		const year: number = parseInt(parts[0], 10);
-		const month: number = parseInt(parts[1], 10);
-		const day: number = parseInt(parts[2], 10);
-
-		if(isNaN(year) || isNaN(month) || isNaN(day) ){
-			console.log("String is not a number.")
-			return undefined
-		}
-			
-		return new CalendarDate(year, month, day)
+		return getDateAsDateValue(this.date);
 	}
 	
 	addGreenActivity(activity: Green) {
@@ -103,11 +90,3 @@ export class Entry {
 	}
 }
 
-function isValidDate(maybeDate: string | undefined): boolean {
-	if (maybeDate === undefined)
-		return false; 
-
-	const date = new Date(maybeDate)
-
-	return !isNaN(date.getTime());
-}
