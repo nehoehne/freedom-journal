@@ -1,9 +1,8 @@
 import { Entry } from '../journal-entry/Entry';
 import { rowsToActivities, rowsToJournalEntries } from '../util/ORM';
-import type { IBackend } from './IBackend';
 import Database from "tauri-plugin-sql-api";
 
-export class Backend implements IBackend {
+export class Backend  {
 	private getDB = () => Database.load("sqlite:test.db");
 
 	async getEntry(date: string) {
