@@ -1,5 +1,5 @@
 import { Entry } from '../journal-entry/Entry';
-import { toActivity, type IActivity } from '../activity/IActivity';
+import { Green, Red, Yellow, type IActivity } from '../activity/IActivity';
 
 // Convert rows of journal entries that have been left joined with
 // activities to journal entry objects 
@@ -16,7 +16,7 @@ export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 			const date = row?.date;
 			const text = row?.text;
 
-			if (id !== undefined && date !== undefined && text !== undefined) {
+			if (id && date && text) {
 
 				// Only add each journal entry once
 				if (!entries.has(id))
@@ -26,7 +26,7 @@ export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 				const activity = toActivity({ id: row?.activity_id, type: row?.activity_type, name: row?.activity_name });
 
 				// Add activity to the relevant journal entry
-				if (entry !== undefined && activity !== undefined)
+				if (entry && activity)
 					activity.addSelfToJournal(entry);
 
 			} else {
@@ -49,7 +49,7 @@ export const rowsToActivities = (rows: unknown): IActivity[] => {
 		
 		for (let row of rows) {
 			const curr = toActivity(row);
-			if (curr !== undefined) 
+			if (curr) 
 				activities.push(curr);
 		}
 		
@@ -57,5 +57,26 @@ export const rowsToActivities = (rows: unknown): IActivity[] => {
 	} catch (error) {
 		console.error("Error mapping activities:", error);
 		return [];
+	}
+}
+
+export const toActivity = (rawActivity: any) => {
+	
+	const id = rawActivity?.id
+	const type = rawActivity?.type
+	const name = rawActivity?.name
+
+	if (!id || !type  || !name)
+		return undefined
+
+	switch (type) {
+		case 'green':
+			return new Green(name, id);
+		case 'yellow':
+			return new Yellow(name, id);
+		case 'red':
+			return new Red(name, id);
+		default:
+			return undefined; 
 	}
 }

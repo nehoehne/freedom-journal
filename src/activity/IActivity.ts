@@ -11,27 +11,6 @@ export interface IActivity {
 	addSelfToJournal: (entry: Entry) => void;
 }
 
-export const toActivity = (rawActivity: any) => {
-	
-	const id = rawActivity?.id
-	const type = rawActivity?.type
-	const name = rawActivity?.name
-
-	if (id === undefined || type === undefined || name === undefined)
-		return undefined
-
-	switch (type) {
-		case 'green':
-			return new Green(name, id);
-		case 'yellow':
-			return new Yellow(name, id);
-		case 'red':
-			return new Red(name, id);
-		default:
-			return undefined; 
-	}
-}
-
 export class Green implements IActivity {
 	
 	private readonly baseStyles = "cursor-default border-transparent"

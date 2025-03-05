@@ -18,7 +18,7 @@ export class Backend implements IBackend {
 
 			const row = rows[0];
 
-			if (row?.id === undefined || row?.text === undefined || row?.date === undefined) {
+			if (!row?.id || !row?.text || !row?.date) {
 				console.log("Invalid entry: " + row);
 				return undefined;
 			}
@@ -77,7 +77,7 @@ export class Backend implements IBackend {
 			const db = await this.getDB();
 			const date = new_entry.getDate();
 
-			if (date !== undefined) {
+			if (date) {
 
 				// Insert journal entry 
 				await db.execute(`INSERT INTO journal_entries (date, text) VALUES ($1, $2)`, [new_entry.getDate(), new_entry.getText()]);
@@ -86,7 +86,7 @@ export class Backend implements IBackend {
 				// need the ID to add the activities
 				const dbEntry = await this.getEntry(date);
 
-				if (dbEntry !== undefined) {
+				if (dbEntry) {
 
 					const activities = new_entry.getAllActivities();
 					

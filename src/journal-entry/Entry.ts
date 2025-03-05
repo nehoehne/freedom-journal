@@ -62,15 +62,15 @@ export class Entry {
 	}
 
 	getGreenActivities(): Green[] {
-		return this.greenActivities.values().toArray()
+		return [...this.greenActivities.values()]
 	}
 
 	getYellowActivities(): Yellow[] {
-		return this.yellowActivities.values().toArray()
+		return [...this.yellowActivities.values()]
 	}
 	
 	getRedActivities(): Red[] {
-		return this.redActivities.values().toArray()
+		return [...this.redActivities.values()]
 	}
 
 	getGreenActivitiesMap(): Map<number, Green> {

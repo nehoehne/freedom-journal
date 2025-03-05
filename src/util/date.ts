@@ -22,7 +22,7 @@ export const getDateAsDateValue = (date: string | undefined) => {
 
 // Checks if the given date is a valid date string (YYYY-MM-DD)
 export const isValidDate = (maybeDate: string | undefined): boolean => {
-	if (maybeDate === undefined)
+	if (!maybeDate)
 		return false;
 
 	const date = new Date(maybeDate)
