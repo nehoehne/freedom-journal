@@ -60,6 +60,8 @@ export const rowsToActivities = (rows: unknown): IActivity[] => {
 	}
 }
 
+
+
 export const toActivity = (rawActivity: any) => {
 	
 	const id = rawActivity?.id
