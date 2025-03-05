@@ -1,9 +1,13 @@
 import { Entry } from '../journal-entry/Entry';
 import { toActivity, type IActivity } from '../activity/IActivity';
 
+// Convert rows of journal entries that have been left joined with
+// activities to journal entry objects 
 export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 	try {
-		if (!Array.isArray(rows)) return [];
+		if (!Array.isArray(rows)) 
+			return [];
+
 		const entries = new Map<number, Entry>();
 
 		for (let row of rows) {
@@ -14,12 +18,14 @@ export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 
 			if (id !== undefined && date !== undefined && text !== undefined) {
 
+				// Only add each journal entry once
 				if (!entries.has(id))
 					entries.set(id, new Entry(id, date, text));
 
 				const entry = entries.get(id);
 				const activity = toActivity({ id: row?.activity_id, type: row?.activity_type, name: row?.activity_name });
 
+				// Add activity to the relevant journal entry
 				if (entry !== undefined && activity !== undefined)
 					activity.addSelfToJournal(entry);
 
@@ -36,12 +42,17 @@ export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 
 export const rowsToActivities = (rows: unknown): IActivity[] => {
 	try {
-		if (!Array.isArray(rows)) return [];
+		if (!Array.isArray(rows)) 
+			return [];
+		
 		const activities: IActivity[] = [];
+		
 		for (let row of rows) {
 			const curr = toActivity(row);
-			if (curr) activities.push(curr);
+			if (curr !== undefined) 
+				activities.push(curr);
 		}
+		
 		return activities;
 	} catch (error) {
 		console.error("Error mapping activities:", error);

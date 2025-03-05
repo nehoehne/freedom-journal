@@ -29,7 +29,7 @@
 
 	refreshStyles();
 </script>
-<!-- fix button issues  -->
+
 <button
 	type="button"
 	on:click={() => toggleSelected()}

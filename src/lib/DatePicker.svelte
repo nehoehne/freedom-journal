@@ -16,9 +16,11 @@
 		dateStyle: "long",
 	});
 
-	export let value: DateValue | undefined = undefined;
+	export let date: DateValue | undefined = undefined;
 	export let disabled: boolean = false; 
 
+	// Check if there is already a journal entry for the 
+	// given date since we don't allow duplicates
 	const checkUnavailable = (date: DateValue) => {
 		for (let entry of $journalEntries)
 			if (date.toString() === entry.getDate())
@@ -34,20 +36,22 @@
 			variant="outline"
 			class={cn(
 				"w-[280px] justify-start text-left font-normal",
-				!value && "text-muted-foreground",
+				!date && "text-muted-foreground",
 			)}
 			builders={[builder]}
 			disabled={disabled}
 		>
 			<CalendarIcon class="mr-2 h-4 w-4" />
-			{value
-				? df.format(value.toDate(getLocalTimeZone()))
+			
+			<!-- Show default text if no date was provided -->
+			{date
+				? df.format(date.toDate(getLocalTimeZone()))
 				: "Pick a date"}
 		</Button>
 	</Popover.Trigger>
 	<Popover.Content class="w-auto p-0">
 		<Calendar
-			bind:value 
+			bind:value={date} 
 			initialFocus
 			maxValue={today(getLocalTimeZone())}
 			isDateUnavailable={checkUnavailable}

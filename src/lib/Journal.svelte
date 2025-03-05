@@ -10,7 +10,7 @@
 
 </script>
 
-<!-- Add button -->
+<!-- 'Add' button -->
 <Dialog.Root>
 	<Dialog.Trigger class={buttonVariants({ variant: "outline" })}
 		>Add Entry</Dialog.Trigger
@@ -29,7 +29,7 @@
 	{#each $journalEntries as journalEntry}
 		<div class="float-end">
 
-			<!-- Edit button -->
+			<!-- 'Edit' button -->
 			<Dialog.Root>
 				<Dialog.Trigger class={buttonVariants({ variant: "link" })}
 					>Edit</Dialog.Trigger

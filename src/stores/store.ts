@@ -8,6 +8,7 @@ export const greenActivities = writable<IActivity[]>([]);
 export const yellowActivities = writable<IActivity[]>([]);
 export const redActivities = writable<IActivity[]>([]);
 
+// Get current list of journal entries from the database 
 export const refreshJournalEntries = async () => {
 	try {
 		const backend = new Backend()
@@ -18,6 +19,7 @@ export const refreshJournalEntries = async () => {
 	}
 }
 
+// Get current activity lists from the database 
 export const refreshActivities = async () => {
 	try {
 		const backend = new Backend()
@@ -29,6 +31,7 @@ export const refreshActivities = async () => {
 	}
 }
 
+// Add the given entry to the database and refresh 
 export const addEntry = async (new_entry: Entry) => {
 	try {
 		const backend = new Backend()

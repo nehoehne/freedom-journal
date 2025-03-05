@@ -6,6 +6,8 @@ export interface IActivity {
 
 	getSelectedStyles: () => string;
 	getUnselectedStyles: () => string;
+
+	// Add 'this' to the given journal entry 
 	addSelfToJournal: (entry: Entry) => void;
 }
 

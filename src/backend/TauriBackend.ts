@@ -23,7 +23,7 @@ export class Backend implements IBackend {
 				return undefined;
 			}
 
-			return new Entry(rows[0].id, rows[0].date, rows[0].text);
+			return new Entry(row.id, row.date, row.text);
 		} catch (error) {
 			console.error("Error fetching journal entry:", error);
 			return undefined;
@@ -56,6 +56,8 @@ export class Backend implements IBackend {
 	async getJournalEntries() {
 		try {
 			const db = await this.getDB();
+
+			// Select all journal entries and all activities 
 			const rows = await db.select(
 				`SELECT journal_entries.id as journal_entry_id, activity_id, date, text, name as activity_name, type as activity_type 
                 FROM journal_entries 
@@ -76,13 +78,19 @@ export class Backend implements IBackend {
 			const date = new_entry.getDate();
 
 			if (date !== undefined) {
+
+				// Insert journal entry 
 				await db.execute(`INSERT INTO journal_entries (date, text) VALUES ($1, $2)`, [new_entry.getDate(), new_entry.getText()]);
 
+				// Get the entry that we just added because we 
+				// need the ID to add the activities
 				const dbEntry = await this.getEntry(date);
+
 				if (dbEntry !== undefined) {
 
 					const activities = new_entry.getAllActivities();
-
+					
+					// Insert activities for this journal entry 
 					for (let activity of activities)
 						await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [dbEntry.getId(), activity.id]);
 				} else {

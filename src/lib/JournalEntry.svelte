@@ -10,7 +10,7 @@
 		greenActivities as allGreenActivities,
 		yellowActivities as allYellowActivities,
 		redActivities as allRedActivities,
-        addEntry,
+		addEntry,
 	} from "../stores/store";
 
 	export let type: JournalEntryType;
@@ -22,32 +22,28 @@
 
 	const handleSubmit = () => {
 		if (entry) {
-			
-			entry.setDate(date)
-			entry.setText(text)
+			entry.setDate(date);
+			entry.setText(text);
 
 			if (entry.hasValidDate()) {
 				if (type == JournalEntryType.EDIT) {
-					console.log("EDIT")
+					console.log("EDIT");
 				} else if (type == JournalEntryType.NEW) {
-					addEntry(entry)
+					addEntry(entry);
 				}
 			} else {
-				console.log("Missing date.")
+				console.log("Missing date.");
 			}
-		}
-		else 
-			console.log("Missing state.")
+		} else console.log("Missing state.");
 	};
 
 	const isReadonly = () => type == JournalEntryType.READONLY;
-
 </script>
 
 <div>
 	<form on:submit|preventDefault={handleSubmit}>
 		<DatePicker
-			bind:value={date}
+			bind:date={date}
 			disabled={type == JournalEntryType.READONLY}
 		/>
 		<Textarea
@@ -56,23 +52,31 @@
 			class="mt-3 mb-3"
 			disabled={isReadonly()}
 		/>
+
+		<!-- Green Activities -->
 		<ActivityList
 			selectedActivitiesMap={entry.getGreenActivitiesMap()}
 			allActivities={$allGreenActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
+		
+		<!-- Yellow Activities -->
 		<ActivityList
 			selectedActivitiesMap={entry.getYellowActivitiesMap()}
 			allActivities={$allYellowActivities}
 			disabled={isReadonly()}
 		></ActivityList>
 		<hr class="mt-3 mb-3" />
+
+		<!-- Red Activities -->
 		<ActivityList
 			selectedActivitiesMap={entry.getRedActivitiesMap()}
 			allActivities={$allRedActivities}
 			disabled={isReadonly()}
 		></ActivityList>
+
+		<!-- Only show Save button if editable -->
 		{#if type == JournalEntryType.NEW || type == JournalEntryType.EDIT}
 			<div class="mt-6 float-end">
 				<Button variant="outline" type="submit">Save</Button>
