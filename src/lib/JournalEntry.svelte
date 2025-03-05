@@ -7,7 +7,6 @@
 	import Button from "./components/ui/button/button.svelte";
 	import { JournalEntryType } from "./utils";
 	import {
-		journalEntries,
 		greenActivities as allGreenActivities,
 		yellowActivities as allYellowActivities,
 		redActivities as allRedActivities,
@@ -48,7 +47,6 @@
 <div>
 	<form on:submit|preventDefault={handleSubmit}>
 		<DatePicker
-			entries={$journalEntries}
 			bind:value={date}
 			disabled={type == JournalEntryType.READONLY}
 		/>

@@ -10,18 +10,17 @@
 	import { Calendar } from "$lib/components/ui/calendar/index.js";
 	import * as Popover from "$lib/components/ui/popover/index.js";
 	import { today } from "@internationalized/date";
-    import type { Entry } from "../journal-entry/Entry";
+    import { journalEntries } from "../stores/store";
 	
 	const df = new DateFormatter("en-US", {
 		dateStyle: "long",
 	});
 
 	export let value: DateValue | undefined = undefined;
-	export let entries: Entry[];
 	export let disabled: boolean = false; 
 
 	const checkUnavailable = (date: DateValue) => {
-		for (let entry of entries)
+		for (let entry of $journalEntries)
 			if (date.toString() === entry.getDate())
 				return true;
 		return false; 
