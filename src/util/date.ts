@@ -16,6 +16,7 @@ export const getDateAsDateValue = (date: string | undefined) => {
 		console.log("String is not a number.")
 		return undefined
 	}
+	
 
 	return new CalendarDate(year, month, day)
 }
