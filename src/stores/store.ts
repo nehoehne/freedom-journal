@@ -3,17 +3,10 @@ import { Backend } from '../backend/TauriBackend';
 import { Entry } from '../journal-entry/Entry';
 import type { IActivity } from '../activity/IActivity';
 
-const initEntries: Entry[] = []
-export const journalEntries = writable(initEntries)
-
-const initGreenActivities: IActivity[] = []
-export const greenActivities = writable(initGreenActivities)
-
-const initYellowActivities: IActivity[] = []
-export const yellowActivities = writable(initYellowActivities)
-
-const initRedActivities: IActivity[] = []
-export const redActivities = writable(initRedActivities)
+export const journalEntries = writable<Entry[]>([]);
+export const greenActivities = writable<IActivity[]>([]);
+export const yellowActivities = writable<IActivity[]>([]);
+export const redActivities = writable<IActivity[]>([]);
 
 export const refreshJournalEntries = async () => {
 	try {
