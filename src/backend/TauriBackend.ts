@@ -89,13 +89,44 @@ export class Backend implements IBackend {
 				if (dbEntry) {
 
 					const activities = new_entry.getAllActivities();
-					
+
 					// Insert activities for this journal entry 
 					for (let activity of activities)
 						await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [dbEntry.getId(), activity.id]);
 				} else {
 					console.log("Failed to add entry: " + new_entry);
 				}
+			}
+		} catch (error) {
+			console.error("Error inserting journal entry:", error);
+		}
+	}
+
+	async updateJournalEntry(new_entry: Entry) {
+		try {
+			const db = await this.getDB();
+			const date = new_entry.getDate();
+
+			try{
+
+				if (date) {
+					await db.execute("BEGIN TRANSACTION");
+	
+					// Insert journal entry 
+					await db.execute(`UPDATE journal_entries SET text=$1 WHERE date=$2`,
+						[new_entry.getText(), new_entry.getDate()]);
+	
+					await db.execute(`DELETE FROM journal_entry_activities WHERE journal_entry_id=$1`, [new_entry.getId()]);
+	
+					const activities = new_entry.getAllActivities();
+					for (let activity of activities)
+						await db.execute(`INSERT INTO journal_entry_activities (journal_entry_id, activity_id) VALUES ($1, $2)`, [new_entry.getId(), activity.id]);
+	
+					await db.execute("COMMIT");
+				}
+			} catch (error) {
+				db.execute("ROLLBACK");
+				console.error("Update failed:", error);
 			}
 		} catch (error) {
 			console.error("Error inserting journal entry:", error);

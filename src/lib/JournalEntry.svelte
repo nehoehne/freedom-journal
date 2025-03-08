@@ -11,6 +11,7 @@
 		yellowActivities as allYellowActivities,
 		redActivities as allRedActivities,
 		addEntry,
+		updateEntry
 	} from "../stores/store";
 
 	export let type: JournalEntryType;
@@ -27,7 +28,7 @@
 
 			if (entry.hasValidDate()) {
 				if (type == JournalEntryType.EDIT) {
-					console.log("EDIT");
+					updateEntry(entry);
 				} else if (type == JournalEntryType.NEW) {
 					addEntry(entry);
 				}

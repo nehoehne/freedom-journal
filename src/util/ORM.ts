@@ -14,9 +14,9 @@ export const rowsToJournalEntries = (rows: unknown): Entry[] => {
 
 			const id = row?.journal_entry_id;
 			const date = row?.date;
-			const text = row?.text;
+			const text = row?.text ?? "";
 
-			if (id && date && text) {
+			if (id && date) {
 
 				// Only add each journal entry once
 				if (!entries.has(id))

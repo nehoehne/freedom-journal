@@ -36,7 +36,18 @@ export const addEntry = async (new_entry: Entry) => {
 	try {
 		const backend = new Backend()
 		await backend.insertJournalEntry(new_entry)
-		refreshJournalEntries()
+		await refreshJournalEntries()
+	} catch (error) {
+		console.error("Failed to add journal entry:", error);
+	}
+}
+
+// Update the given entry and refresh 
+export const updateEntry = async (new_entry: Entry) => {
+	try {
+		const backend = new Backend()
+		await backend.updateJournalEntry(new_entry)
+		await refreshJournalEntries()
 	} catch (error) {
 		console.error("Failed to add journal entry:", error);
 	}
