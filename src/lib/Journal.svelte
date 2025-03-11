@@ -6,18 +6,20 @@
 	import { Entry } from "../journal-entry/Entry";
 	import { JournalEntryType } from "./utils";
 	import { journalEntries } from "../stores/store";
-
-
+	
+	let open = false; // used to close the Dialog
+	
 </script>
 
 <!-- 'Add' button -->
-<Dialog.Root>
+<Dialog.Root bind:open>
 	<Dialog.Trigger class={buttonVariants({ variant: "outline" })}
 		>Add Entry</Dialog.Trigger
 	>
 	<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
 		<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 			<JournalEntry
+				bind:open
 				type={JournalEntryType.NEW}
 				entry={new Entry()}
 			></JournalEntry>
@@ -30,13 +32,14 @@
 		<div class="float-end">
 
 			<!-- 'Edit' button -->
-			<Dialog.Root>
+			<Dialog.Root bind:open>
 				<Dialog.Trigger class={buttonVariants({ variant: "link" })}
 					>Edit</Dialog.Trigger
 				>
 				<Dialog.Content class="sm:max-h-[600px] sm:max-w-[600px]">
 					<ScrollArea class="sm:max-h-[590px] sm:max-w-[600px] p-4">
 						<JournalEntry
+							bind:open
 							type={JournalEntryType.EDIT}
 							entry={journalEntry}
 						></JournalEntry>
@@ -47,7 +50,9 @@
 
 		<!-- Journal entry -->
 		<div class="mb-10">
-			<JournalEntry type={JournalEntryType.READONLY} entry={journalEntry}
+			<JournalEntry
+				type={JournalEntryType.READONLY}
+				entry={journalEntry}
 			></JournalEntry>
 		</div>
 	{/each}
