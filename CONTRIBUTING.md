@@ -1,5 +1,30 @@
 # CONTRIBUTING 
+### Table of Contents  
 
+1. [**Running the app**](#running-the-app)  
+   - [Prerequisites](#prerequisites)  
+   - [Install, build, and run](#install-build-and-run)  
+
+2. [**VSCode setup (optional)**](#vscode-setup-optional)  
+   - [Recommended Extensions](#recommended-extensions)  
+   - [VSCode settings configuration](#add-the-following-to-vscodesettingsjson)  
+
+3. [**Ticket workflow**](#ticket-workflow)  
+   - [Creating a branch](#make-a-branch-from-master)  
+   - [Committing changes](#make-any-commits)  
+   - [Pushing changes](#push-changes-to-origin)  
+   - [Creating a pull request](#create-a-pr-in-github-to-merge-into-master-and-request-a-review)  
+
+4. [**Code standards**](#code-standards)  
+   - [Formatting conventions](#use-tabs-not-spaces)  
+   - [Naming conventions](#naming)  
+   - [Commenting guidelines](#comments-comment-unclear-sections-of-code)  
+
+	- [File structure](#file-structure)  
+
+	- [Front-end general guidelines](#front-end-general-guidelines)  
+
+	- [Testing requirements](#testing-requirements)
 ## Running the app
 
 ### Prerequisites 
@@ -54,6 +79,13 @@ Create a PR in GitHub to merge into master and request a review. Ensure to refer
 ## Code standards
 * Use tabs not spaces
 * Opening braces should be on the same line
+* Naming: 
+	* Variables: camel (e.g. myVar)
+	* Functions: camel (e.g. myFunc)
+	* Constants: screaming snake (e.g. MY_CONSTANT)
+	* Classes: capitalized camel (e.g. MyClass)
+	* Interfaces: 'I' prefixed camel (e.g. IMyClass)
+* Comments: comment unclear sections of code 
 
 ### File structure
 Wherever possible new files should follow the existing file structure: 
