@@ -13,6 +13,7 @@ This journal is not meant to replace traditional approaches such as accountabili
 
 ## The Application 
 
+
 1. Calendar 
 2. Journal 
 3. Configurable structured daily check-in/reflection 
