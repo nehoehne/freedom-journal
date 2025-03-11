@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { rowsToJournalEntries, rowsToActivities, toActivity } from "./ORM";
 import { Entry } from "../journal-entry/Entry";
-import { Green, Yellow, Red } from "../activity/IActivity";
+import { Green, Yellow, Red } from "../objects/IActivity";
 
 describe("rowsToJournalEntries", () => {
 	it("should convert valid rows into journal entries with activities", () => {

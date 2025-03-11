@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IActivity } from "../activity/IActivity";
+	import type { IActivity } from "../objects/IActivity";
 	import { cn } from "$lib/utils.js";
 
 	const baseStyles =

@@ -3,7 +3,7 @@
 	import DatePicker from "./DatePicker.svelte";
 	import { Textarea } from "$lib/components/ui/textarea/index.js";
 	import ActivityList from "./ActivityList.svelte";
-	import { Entry } from "../journal-entry/Entry";
+	import { Entry } from "../objects/Entry";
 	import Button from "./components/ui/button/button.svelte";
 	import { JournalEntryType } from "./utils";
 	import {

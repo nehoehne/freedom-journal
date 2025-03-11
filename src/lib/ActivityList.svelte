@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Activity from "./Activity.svelte";
-	import { type IActivity } from "../activity/IActivity";
+	import { type IActivity } from "../objects/IActivity";
 
 	export let allActivities: IActivity[];
 	export let disabled: boolean = false;

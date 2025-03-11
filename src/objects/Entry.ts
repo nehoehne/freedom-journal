@@ -1,5 +1,5 @@
 import { CalendarDate, type DateValue } from "@internationalized/date";
-import { Green, Red, Yellow, type IActivity } from "../activity/IActivity";
+import { Green, Red, Yellow, type IActivity } from "../objects/IActivity";
 import { getDateAsDateValue, isValidDate } from "../util/date";
 
 export class Entry {

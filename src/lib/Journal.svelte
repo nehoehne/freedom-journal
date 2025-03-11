@@ -3,7 +3,7 @@
 	import * as Dialog from "$lib/components/ui/dialog/index.js";
 	import JournalEntry from "./JournalEntry.svelte";
 	import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
-	import { Entry } from "../journal-entry/Entry";
+	import { Entry } from "../objects/Entry";
 	import { JournalEntryType } from "./utils";
 	import { journalEntries } from "../stores/store";
 	

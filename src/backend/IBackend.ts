@@ -1,4 +1,4 @@
-import type { IActivity } from "../activity/IActivity";
+import type { IActivity } from "../objects/IActivity";
 import type { Entry } from "../journal-entry/Entry";
 
 export interface IBackend 

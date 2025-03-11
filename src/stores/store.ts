@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { Backend } from '../backend/TauriBackend';
 import { Entry } from '../journal-entry/Entry';
-import type { IActivity } from '../activity/IActivity';
+import type { IActivity } from '../objects/IActivity';
 
 export const journalEntries = writable<Entry[]>([]);
 export const greenActivities = writable<IActivity[]>([]);
