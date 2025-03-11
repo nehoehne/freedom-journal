@@ -1,4 +1,4 @@
-import { Entry } from '../journal-entry/Entry';
+import { Entry } from '../objects/Entry';
 import { Green, Red, Yellow, type IActivity } from '../objects/IActivity';
 
 // Convert rows of journal entries that have been left joined with

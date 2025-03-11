@@ -1,4 +1,4 @@
-import { Entry } from "../journal-entry/Entry";
+import { Entry } from "../objects/Entry";
 
 export interface IActivity {
 	name: string;

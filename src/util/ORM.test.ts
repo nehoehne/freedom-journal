@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { rowsToJournalEntries, rowsToActivities, toActivity } from "./ORM";
-import { Entry } from "../journal-entry/Entry";
+import { Entry } from "../objects/Entry";
 import { Green, Yellow, Red } from "../objects/IActivity";
 
 describe("rowsToJournalEntries", () => {

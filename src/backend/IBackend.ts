@@ -1,5 +1,5 @@
 import type { IActivity } from "../objects/IActivity";
-import type { Entry } from "../journal-entry/Entry";
+import type { Entry } from "../objects/Entry";
 
 export interface IBackend 
 {

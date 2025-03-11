@@ -1,4 +1,4 @@
-import { Entry } from '../journal-entry/Entry';
+import { Entry } from '../objects/Entry';
 import { rowsToActivities, rowsToJournalEntries } from '../util/ORM';
 import type { IBackend } from './IBackend';
 import Database from "tauri-plugin-sql-api";
