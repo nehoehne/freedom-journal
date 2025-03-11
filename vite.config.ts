@@ -27,5 +27,15 @@ export default defineConfig(async () => ({
 	test: {
 		globals: true,
 		environment: 'node',
+		coverage: {
+			provider: 'v8', // Use 'v8' for built-in coverage
+			reporter: ['text', 'lcov'], // Output formats
+			include: ['src/util/**/*.ts'], // Only apply coverage enforcement to 'src/util/*'
+			lines: 80,
+			branches: 80,
+			functions: 100,
+			statements: 80,
+			checkCoverage: true, // Enforce thresholds
+		},
 	},
 }));
