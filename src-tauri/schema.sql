@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS journal_entries (
 CREATE TABLE IF NOT EXISTS activities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-	type TEXT NOT NULL CHECK (type IN ('green', 'yellow', 'red'))
+	type TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS journal_entry_activities (

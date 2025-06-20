@@ -16,7 +16,6 @@
 
 	export let type: JournalEntryType;
 	export let entry: Entry;
-	export let open: boolean = true; // used to set the value in the parent to close the dialog this component is contained within
 
 	// If state was provided then we want to populate the form
 	let date: DateValue | undefined = entry.getDateAsDateValue();
@@ -33,9 +32,6 @@
 				} else if (type == JournalEntryType.NEW) {
 					addEntry(entry);
 				}
-
-				/* Close the Dialog */
-				open = false;
 			} else {
 				console.log("Missing date.");
 			}

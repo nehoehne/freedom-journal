@@ -30,6 +30,7 @@ export class Backend implements IBackend {
 		}
 	}
 
+
 	async getActivitiesByType(type: string) {
 		try {
 			const db = await this.getDB();
@@ -40,6 +41,22 @@ export class Backend implements IBackend {
 			return [];
 		}
 	}
+
+	async addActivityByType(type: string, name: string) {
+	try {
+		const db = await this.getDB();
+		console.log(`INSERT INTO activities (name, type) VALUES (${name}, ${type})`)
+		await db.execute(
+			`INSERT INTO activities (name, type) VALUES ($1, $2)`,
+			[name, type]
+		);
+		console.log(`Added activity '${name}' of type '${type}'`);
+		return true;
+	} catch (error) {
+		console.error(`Error adding activity of type '${type}':`, error);
+		return false;
+	}
+}
 
 	async getGreenActivities() {
 		return this.getActivitiesByType("green");
@@ -53,6 +70,8 @@ export class Backend implements IBackend {
 		return this.getActivitiesByType("red");
 	}
 
+
+	
 	async getJournalEntries() {
 		try {
 			const db = await this.getDB();

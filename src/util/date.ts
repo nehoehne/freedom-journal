@@ -1,4 +1,5 @@
 import { CalendarDate } from "@internationalized/date";
+import type { Entry } from "../objects/Entry";
 
 // Converts a date string (YYYY-MM-DD) to a CalendarDate 
 export const getDateAsDateValue = (date: string | undefined) => {
@@ -28,4 +29,22 @@ export const isValidDate = (maybeDate: string | undefined): boolean => {
 	const date = new Date(maybeDate)
 
 	return !isNaN(date.getTime());
+}
+
+
+export function getEarliestRedEntryDate(entries: Entry[]): string | null {
+	let mostRecentRedDate: string | null = null;
+
+	for (const entry of entries) {
+		if (!entry) continue;
+
+		const date = entry.getDate();
+		const hasRed = entry.getRedActivities().length > 0;
+
+		if (hasRed && date && (mostRecentRedDate === null || date > mostRecentRedDate)) {
+			mostRecentRedDate = date;
+		}
+	}
+
+	return mostRecentRedDate;
 }

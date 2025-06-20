@@ -3,6 +3,9 @@ import { Backend } from '../backend/TauriBackend';
 import { Entry } from '../objects/Entry';
 import type { IActivity } from '../objects/IActivity';
 
+import { get } from "svelte/store";
+import { type DateValue } from "@internationalized/date";
+
 export const journalEntries = writable<Entry[]>([]);
 export const greenActivities = writable<IActivity[]>([]);
 export const yellowActivities = writable<IActivity[]>([]);
