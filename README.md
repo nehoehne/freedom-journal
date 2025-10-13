@@ -12,7 +12,6 @@ With any addiction, it can be difficult to identify the underlying issues that d
 This journal is not meant to replace traditional approaches such as accountability groups, therapy, anonymous groups, etc.. On the contrary, we discourage anyone from using this app in isolation. Merely tracking information, especially information as significant as relapses, without the support needed to improve your situation, may only serve to discourage you and thus, do more harm than good. 
 
 ## The Application 
-
 1. Calendar 
 2. Journal 
 3. Configurable structured daily check-in/reflection 
